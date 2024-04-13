@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Ex7</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="choose_character">Choose character</string>
+    <string name="islandsurvive">IslandSurvive</string>
+    <string name="choose_job">Choose job</string>
+    <string name="start">Start</string>
+</resources>
