@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.ex7.DataLayer.Models.Character;
+import com.example.ex7.DataLayer.DS.Room.Entities.Character;
 import com.example.ex7.R;
 import com.example.ex7.SelectedItem;
 

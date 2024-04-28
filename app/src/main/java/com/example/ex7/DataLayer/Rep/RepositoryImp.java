@@ -1,28 +1,43 @@
 package com.example.ex7.DataLayer.Rep;
 
+import android.content.Context;
+
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.ex7.DataLayer.DS.CharacterDS;
 import com.example.ex7.DataLayer.DS.JobDS;
+import com.example.ex7.DataLayer.DS.Room.DAO.interfaceDAO;
+import com.example.ex7.DataLayer.DS.Room.Entities.Character;
+import com.example.ex7.DataLayer.DS.Room.Entities.Job;
+import com.example.ex7.DataLayer.DS.Room.RoomDB;
 import com.example.ex7.DataLayer.DS.TransmittedData;
-import com.example.ex7.DataLayer.Models.Character;
-import com.example.ex7.DataLayer.Models.Job;
 import com.example.ex7.DomainLayer.Protocol.Repository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RepositoryImp implements Repository {
     private static RepositoryImp instance;
-    private MutableLiveData<String> characterName, jobName, bufferCharacterName;
-
-    public static RepositoryImp getInstance() {
+    private MutableLiveData<String> characterName;
+    private MutableLiveData<String> jobName;
+    private MutableLiveData<String> bufferCharacterName;
+    private LiveData<List<Character>> charactersList;
+    private LiveData<List<Job>> jobsList;
+    private interfaceDAO myDAO;
+    private final Context context;
+    public static RepositoryImp getInstance(Context context){
         if (instance == null){
-            instance = new RepositoryImp();
+            instance = new RepositoryImp(context);
         }
         return instance;
     }
-
-    private RepositoryImp(){
+    private RepositoryImp(Context context){
+        this.context = context;
+        RoomDB roomDB = RoomDB.getDatabase(context);
+        myDAO = roomDB.funcDAO();
+        charactersList = myDAO.getCharacterFromRoom();
+        jobsList = myDAO.getJobFromRoom();
         characterName = new MutableLiveData<>();
         jobName = new MutableLiveData<>();
         bufferCharacterName = new MutableLiveData<>();
@@ -47,13 +62,13 @@ public class RepositoryImp implements Repository {
     }
 
     @Override
-    public ArrayList<Character> getCharactersDB() {
-        return CharacterDS.getInstance().getCharacters();
+    public LiveData<List<Character>> getCharactersDB() {
+        return charactersList;
     }
 
     @Override
-    public ArrayList<Job> getJobsDB() {
-        return JobDS.getInstance().getJobs();
+    public LiveData<List<Job>> getJobsDB() {
+        return jobsList;
     }
 
     @Override

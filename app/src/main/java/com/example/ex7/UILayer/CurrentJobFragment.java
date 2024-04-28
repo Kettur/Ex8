@@ -30,19 +30,27 @@ public class CurrentJobFragment extends Fragment {
         binding = FragmentCurrentJobBinding.inflate(getLayoutInflater());
         viewModel = new ViewModelProvider(this).get(CurrentJobViewModel.class);
 
-        viewModel.getCharacterName().observe(getViewLifecycleOwner(), new Observer<String>() {
+        viewModel.getCharacterName(getContext()).observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
                 binding.textViewInfo.setText("Worker: " + s + "\n");
             }
         });
 
-        viewModel.getJobName().observe(getViewLifecycleOwner(), new Observer<String>() {
+        viewModel.getJobName(getContext()).observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
                 binding.textViewInfo.setText(binding.textViewInfo.getText() + "Current job: " + s);
             }
         });
+        //        app-specific/general{
+//        String data = AppSpecificStorage.getInstance(getActivity()).readData();
+//        binding.textViewVisitInfo.setText(data);
+//        }
+
+//        String masterName = SharedPreferencesDB.getInstance(getContext()).getValue("Специалист");
+//        String serviceName = SharedPreferencesDB.getInstance(getContext()).getValue("Услуга");
+//        binding.textViewVisitInfo.setText("Выбранный специалист: " + masterName + "\n" + "Выбранная услуга: " + serviceName);
 
         return binding.getRoot();
     }

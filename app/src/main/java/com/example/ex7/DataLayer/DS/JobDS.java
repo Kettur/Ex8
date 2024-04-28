@@ -1,7 +1,6 @@
 package com.example.ex7.DataLayer.DS;
 
-import com.example.ex7.DataLayer.Models.Character;
-import com.example.ex7.DataLayer.Models.Job;
+import com.example.ex7.DataLayer.DS.Room.Entities.Job;
 
 import java.util.ArrayList;
 

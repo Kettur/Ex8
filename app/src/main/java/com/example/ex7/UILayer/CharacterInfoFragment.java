@@ -32,7 +32,7 @@ public class CharacterInfoFragment extends Fragment {
         binding = FragmentCharacterInfoBinding.inflate(getLayoutInflater());
         viewModel = new ViewModelProvider(this).get(CharacterInfoViewModel.class);
 
-        viewModel.getBufferCharacterName().observe(getViewLifecycleOwner(), new Observer<String>() {
+        viewModel.getBufferCharacterName(getContext()).observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
                 binding.textViewFullName.setText(s);
@@ -43,7 +43,7 @@ public class CharacterInfoFragment extends Fragment {
         binding.buttonSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RepositoryImp.getInstance().setCharacterName(viewModel.getBufferCharacterName().getValue());
+                RepositoryImp.getInstance(getContext()).setCharacterName(viewModel.getBufferCharacterName(getContext()).getValue());
                 Navigation.findNavController(binding.getRoot()).popBackStack();
                 Navigation.findNavController(binding.getRoot()).popBackStack();
             }
